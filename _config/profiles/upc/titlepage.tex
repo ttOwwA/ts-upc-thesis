@@ -1,0 +1,58 @@
+\begin{full-titlepage}
+  \makeatletter
+  \thispagestyle{empty}
+  \centering
+  \vspace*{1.8cm}
+
+  \begingroup
+    \hspace*{2.5cm}
+    \raggedright
+    \def\upc@insertlogo{%
+      \parbox[c][1.8cm][c]{2.6cm}{\centering\upchei\wuhao 校徽 Logo}%
+    }%
+    \IfFileExists{\thesisProfilesPath/logo.pdf}{%
+      \def\upc@insertlogo{\includegraphics[height=1.8cm,keepaspectratio]{\thesisProfilesPath/logo.pdf}}%
+    }{%
+      \IfFileExists{\thesisProfilesPath/logo.png}{%
+        \def\upc@insertlogo{\includegraphics[height=1.8cm,keepaspectratio]{\thesisProfilesPath/logo.png}}%
+      }{}%
+    }%
+    \upc@insertlogo\par
+  \endgroup
+
+  \vspace{\upctitlepagespace}
+
+  \begin{minipage}{0.8\textwidth}
+    \centering
+    {\upchei\xiaochuhao\bfseries 本\ 科\ 毕\ 业\ 设\ 计\ （论文）\par}
+  \end{minipage}\par
+
+  \vspace{\upctitlepagespace}
+
+  \begin{minipage}{0.6\paperwidth}
+    {\upchei\xiaoerhao
+    \raggedright
+    题\hspace{1em}目：\@title \par
+
+    \vspace{0.3cm}
+    \ifdefempty{\@upcsubtitle}{}{\raggedleft \@upcsubtitle \par}}
+  \end{minipage}\par
+
+  \vspace{\upctitlepagespace}
+
+  {\upcsong\sanhao
+  \renewcommand\arraystretch{1.5}
+  \setlength{\tabcolsep}{0.3em}
+  \begin{tabular}{@{}ll@{}}
+    {\upcfang 姓\quad \quad 名：} & \upccoverlinefill[7.5cm]{\@author} \\
+    {\upcfang 学\quad \quad 号：} & \upccoverlinefill[7.5cm]{\@studentnumber} \\
+    {\upcfang 学\quad \quad 院：} & \upccoverlinefill[7.5cm]{\@college} \\
+    {\upcfang 专\quad \quad 业：} & \upccoverlinefill[7.5cm]{\@major} \\
+    {\upcfang 指导教师：} & \upccoverlinefill[7.5cm]{\@advisor} \\
+  \end{tabular}\par}
+
+  \vspace{\upctitlepagespace}
+
+  {\upchei\xiaoerhao \@date\par}
+  \makeatother
+\end{full-titlepage}

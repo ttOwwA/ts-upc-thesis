@@ -1,0 +1,57 @@
+\documentclass[
+  verbose,
+  language=chinese,
+  profile=upc,
+  type=bachelor-thesis,
+  paper=a4,
+  fontsize=12pt,
+  pageInFloatRef=false
+]{thesis}
+
+\addbibresource{literature/literature-upc.bib}
+
+\title{线性表的设计和实现}
+% \author{张三}
+\author{}
+% \studentnumber{2100000000}
+\studentnumber{}
+% \college{计算机科学与技术学院}
+\college{}
+% \major{计算机科学与技术}
+\major{}
+% \advisor{李老师\quad 教授}
+\advisor{}
+% \upcsubtitle{—— 副标题}
+\upcenglishtitle{The design and implementation of the linear form}
+% \upcenglishsubtitle{——Subtitle}
+\upckeywords{数据结构；面向对象；可视化；算法}
+\upcenkeywords{data structure；object-oriented；visualization；algorithm}
+\date{\quad 年 \quad 月 \quad 日}
+
+\begin{document}
+  \maketitle
+
+  \frontmatter
+
+  \include{segments/upc/originality_and_license}
+  \include{segments/upc/abstract-cn}
+  \include{segments/upc/abstract-en}
+
+  \upcsetupfrontmatter
+  \markboth{\UPCFixedHeaderText}{}
+  \upcprinttableofcontents
+
+  \mainmatter
+  \upcsetupmainmatter
+
+  \include{segments/upc/chapter1}
+  \include{segments/upc/chapter2}
+  \include{segments/upc/chapter3}
+  \include{segments/upc/chapter4}
+  \include{segments/upc/chapter5}
+
+  \backmatter
+  \include{segments/upc/acknowledgements}
+  \include{segments/upc/bibliography}
+  \include{segments/upc/appendix}
+\end{document}

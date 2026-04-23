@@ -1,0 +1,439 @@
+\makeatletter
+
+\geometry{
+  left=2.5cm,
+  right=2.5cm,
+  top=2.5cm,
+  bottom=2.5cm,
+  bindingoffset=0cm,
+  includehead=false,
+  includefoot=false,
+  headheight=18pt,
+  headsep=12pt,
+  footskip=1.6cm
+}
+
+\KOMAoptions{
+  headsepline=0.4pt
+}
+
+% --- Fonts ---------------------------------------------------------------
+% Use internal helpers for detection, then define UPC-specific font families.
+\thesis@setlatinfont
+\thesis@setCJKfonts
+
+\newCJKfontfamily\upcsong[
+  AutoFakeBold,
+  ItalicFont=\thesis@CJKkai,
+  BoldItalicFont=\thesis@CJKhei
+]{\thesis@CJKsong}
+\newCJKfontfamily\upchei{\thesis@CJKhei}[AutoFakeBold]
+\newCJKfontfamily\upckai{\thesis@CJKkai}[AutoFakeBold]
+\newCJKfontfamily\upcfang{\thesis@CJKfang}[AutoFakeBold]
+\newfontfamily\upctimes[
+  BoldFont=\thesis@latinfont@bold,
+  ItalicFont=\thesis@latinfont@italic,
+  BoldItalicFont=\thesis@latinfont@bolditalic
+]{\thesis@latinfont@name}
+
+% --- Chinese font sizes --------------------------------------------------
+\newcommand*\xiaosanhao{\fontsize{15pt}{22.5pt}\selectfont}
+\newcommand*\xiaochuhao{\fontsize{36pt}{54pt}\selectfont}
+\newcommand*\xiaoerhao{\fontsize{18pt}{27pt}\selectfont}
+\newcommand*\sanhao{\fontsize{16pt}{24pt}\selectfont}
+\newcommand*\sihao{\fontsize{14pt}{21pt}\selectfont}
+\newcommand*\xiaosihao{\fontsize{12pt}{23.4pt}\selectfont}
+\newcommand*\wuhao{\fontsize{10.5pt}{15.75pt}\selectfont}
+\newlength\upctitlepagespace
+\setlength\upctitlepagespace{4\baselineskip}
+\newlength\upcsectionspace
+\setlength\upcsectionspace{9pt}
+
+% --- Metadata ------------------------------------------------------------
+% \studentnumber 在 internal/titlepage.tex 中默认会加方括号，
+% UPC 格式不需要括号，因此在这里用 \renewcommand* 覆盖。
+\renewcommand*\studentnumber[1]{\def\@studentnumber{#1}}
+\def\@studentnumber{}
+
+% UPC 使用 \college 而非 \institute，故不向后者的宏传递。
+\newcommand*\college[1]{\def\@college{#1}}
+\def\@college{}
+
+\newcommand*\major[1]{\def\@major{#1}}
+\def\@major{}
+
+\newcommand*\advisor[1]{\def\@advisor{#1}}
+\def\@advisor{}
+
+\newcommand*\upcsubtitle[1]{\def\@upcsubtitle{#1}}
+\def\@upcsubtitle{}
+
+\newcommand*\upcenglishtitle[1]{\def\@upcenglishtitle{#1}}
+\def\@upcenglishtitle{The design and implementation of the linear form}
+
+\newcommand*\upcenglishsubtitle[1]{\def\@upcenglishsubtitle{#1}}
+\def\@upcenglishsubtitle{}
+
+\newcommand*\upckeywords[1]{\def\@upckeywords{#1}}
+\def\@upckeywords{数据结构；面向对象；可视化；算法}
+
+\newcommand*\upcenkeywords[1]{\def\@upcenkeywords{#1}}
+\def\@upcenkeywords{data structure；object-oriented；visualization；algorithm}
+
+\newcommand*\UPCCNTitle{\@title}
+\newcommand*\UPCCNSubtitle{\@upcsubtitle}
+\newcommand*\UPCEnglishTitle{\@upcenglishtitle}
+\newcommand*\UPCEnglishSubtitle{\@upcenglishsubtitle}
+\newcommand*\UPCKeywordsCN{\@upckeywords}
+\newcommand*\UPCKeywordsEN{\@upcenkeywords}
+
+% --- Page styles ---------------------------------------------------------
+\newcommand*\UPCFixedHeaderText{中国石油大学（华东）本科毕业设计 (论文)}
+\newcommand*\upcheaderfont{\upckai\wuhao}
+\newcommand*\upcfooterfont{\upcsong\wuhao}
+\newcommand*\upcheadercontent[1]{\raisebox{-3pt}[0pt][0pt]{\upcheaderfont #1}}
+
+\newpairofpagestyles{upcfrontmatter}{%
+  \clearpairofpagestyles
+  \chead{\upcheadercontent{\UPCFixedHeaderText}}
+}
+
+\newpairofpagestyles{upcfrontmatterplain}{%
+  \clearpairofpagestyles
+}
+\ModifyLayer[contents={}]{upcfrontmatterplain.head.above.line}
+\ModifyLayer[contents={}]{upcfrontmatterplain.head.below.line}
+\ModifyLayer[contents={}]{plain.upcfrontmatterplain.head.above.line}
+\ModifyLayer[contents={}]{plain.upcfrontmatterplain.head.below.line}
+
+\newpairofpagestyles{upcmainmatter}{%
+  \clearpairofpagestyles
+  \chead{\upcheadercontent{\leftmark}}
+  \cfoot{\upcfooterfont \pagemark}
+}
+
+\automark[chapter]{chapter}
+
+\newcommand*\upcsetupfrontmatter{%
+  \pagestyle{upcfrontmatter}%
+  \renewcommand*\chapterpagestyle{upcfrontmatter}%
+  \markboth{\UPCFixedHeaderText}{}%
+}
+
+\newcommand*\upcsetupmainmatter{%
+  \pagestyle{upcmainmatter}%
+  \renewcommand*\chapterpagestyle{upcmainmatter}%
+}
+
+\renewcommand*{\chaptermark}[1]{\markboth{第 \thechapter 章\enskip #1}{}}
+\renewcommand*{\sectionmark}[1]{}
+
+% --- Heading styles ------------------------------------------------------
+\setkomafont{chapter}{\normalfont\upchei\sanhao}
+\setkomafont{section}{\normalfont\upchei\sihao}
+\setkomafont{subsection}{\normalfont\upchei\xiaosihao}
+\setkomafont{subsubsection}{\normalfont\upcsong\xiaosihao}
+
+\RedeclareSectionCommand[beforeskip=0.5\baselineskip,afterskip=1.5\baselineskip]{chapter}
+\RedeclareSectionCommand[beforeskip=\upcsectionspace,afterskip=\upcsectionspace]{section}
+\RedeclareSectionCommand[beforeskip=\upcsectionspace,afterskip=\upcsectionspace]{subsection}
+\RedeclareSectionCommand[beforeskip=\upcsectionspace,afterskip=\upcsectionspace]{subsubsection}
+
+% --- Figure / table / equation styles ------------------------------------
+\DeclareCaptionFont{upcwuhao}{\upcsong\wuhao}
+\DeclareCaptionLabelFormat{upc}{#1 #2}
+\captionsetup{
+  font=upcwuhao,
+  labelfont=upcwuhao,
+  textfont=upcwuhao,
+  labelformat=upc,
+  labelsep=space,
+  justification=centering,
+  singlelinecheck=false
+}
+
+% --- TOC styles ----------------------------------------------------------
+\newcommand*\upc@toctitle{目 \quad 录}
+\setkomafont{chapterentry}{\upcsong\xiaosihao}
+\setkomafont{chapterentrypagenumber}{\upcsong\xiaosihao}
+
+\newcommand*\upc@tocchapterentrynumber[1]{第 #1 章\enskip}
+\newcommand*\upc@tocnumber[1]{#1\enskip}
+\newcommand*\upc@tocentry[1]{\upcsong\xiaosihao #1}
+\newcommand*\upc@tocpagenumber[1]{\upcsong\xiaosihao #1}
+
+\DeclareTOCStyleEntry[
+  entrynumberformat=\upc@tocchapterentrynumber,
+  entryformat=\upc@tocentry,
+  pagenumberformat=\upc@tocpagenumber,
+  linefill=\TOCLineLeaderFill,
+  raggedpagenumber=false,
+  indent=0pt,
+  numwidth=3.5em,
+  beforeskip=0pt
+]{tocline}{chapter}
+
+\DeclareTOCStyleEntry[
+  entrynumberformat=\upc@tocnumber,
+  entryformat=\upc@tocentry,
+  pagenumberformat=\upc@tocpagenumber,
+  linefill=\TOCLineLeaderFill,
+  raggedpagenumber=false,
+  indent=2em,
+  numwidth=2em,
+  beforeskip=0pt
+]{tocline}{section}
+
+\DeclareTOCStyleEntry[
+  entrynumberformat=\upc@tocnumber,
+  entryformat=\upc@tocentry,
+  pagenumberformat=\upc@tocpagenumber,
+  linefill=\TOCLineLeaderFill,
+  raggedpagenumber=false,
+  indent=4em,
+  numwidth=3em,
+  beforeskip=0pt
+]{tocline}{subsection}
+
+% --- Utility commands ----------------------------------------------------
+\newcommand*\upcfronttitle[1]{%
+  \cleardoublepage
+  \vspace*{\baselineskip}%
+  {\centering \upchei\xiaosanhao #1\par}%
+  \vspace{0.5\baselineskip}%
+}
+
+\newcommand*\upcabstractheading[1]{%
+  \vspace{0.5\baselineskip}%
+  {\centering #1\par}%
+  \vspace{0.5\baselineskip}%
+}
+
+\newcommand*\upcspecialchapter[2]{%
+  \cleardoublepage
+  \upcsetupfrontmatter
+  \chapter*{#1}%
+  \thispagestyle{upcfrontmatter}%
+  \addcontentsline{toc}{chapter}{#2}%
+}
+
+\newcommand*\upcprinttableofcontents{%
+  \cleardoublepage
+  \upcsetupfrontmatter
+  \begingroup
+  \renewcommand*\contentsname{\upc@toctitle}%
+  \RedeclareSectionCommand[beforeskip=1.5\baselineskip,afterskip=0.5\baselineskip]{chapter}%
+  \tableofcontents
+  \endgroup
+  \thispagestyle{upcfrontmatter}%
+}
+
+\newcommand*\upcappendixnumbering{%
+  \setcounter{figure}{0}%
+  \setcounter{table}{0}%
+  \setcounter{equation}{0}%
+  \renewcommand*\thefigure{A\arabic{figure}}%
+  \renewcommand*\thetable{A\arabic{table}}%
+  \renewcommand*\theequation{A\arabic{equation}}%
+}
+
+\newcommand*\upcbody{\upcsong\xiaosihao}
+\newcommand*\upcabstractbody{\upcbody}
+\newcommand*\upcbodybf{\upcsong\xiaosihao\bfseries}
+\AtBeginDocument{\upcbody}
+\newcommand*\upccoverline[2][7cm]{\underline{\makebox[#1][l]{\strut #2}}}
+
+% --- Bibliography & citation styles --------------------------------------
+% 参考文献列表：宋体小四，取消所有斜体映射以避免 fallback 到楷体
+\AtBeginBibliography{%
+  \upcsong\xiaosihao
+  \renewcommand*{\mkbibemph}[1]{#1}%
+  \renewcommand*{\textit}[1]{#1}%
+  \renewcommand*{\emph}[1]{#1}%
+}
+
+% 引用：小四号 Times New Roman 上标
+\DeclareCiteCommand{\cite}[\upcbibciteformat]
+  {\bibopenbracket}
+  {\usebibmacro{citeindex}\usebibmacro{cite}}
+  {\bibclosebracket\multicitedelim\bibopenbracket}
+  {\bibclosebracket}
+\newcommand*\upcbibciteformat[1]{\textsuperscript{\upctimes\xiaosihao #1}}
+
+\newcommand*\upccoverlinefill[2][7cm]{%
+  \if\relax\detokenize{#2}\relax
+    \upccoverline[#1]{}%
+  \else
+    \upccoverline[#1]{#2}%
+  \fi
+}
+
+% ---------------------------------------------------------------------------
+% Decoupled environments and commands for segments/upc
+% ---------------------------------------------------------------------------
+
+% --- Abstracts -------------------------------------------------------------
+\newenvironment{upcabstractcn}{%
+  \cleardoublepage
+  \upcsetupfrontmatter
+  \thispagestyle{upcfrontmatter}%
+  \markboth{\UPCFixedHeaderText}{}%
+  \vspace*{\baselineskip}%
+  {\centering {\upchei\xiaoerhao \UPCCNTitle\par}}%
+  \ifdefempty{\@upcsubtitle}{}{\par\raggedleft\upchei\xiaoerhao \UPCCNSubtitle\par}%
+  \upcabstractheading{\upchei\sanhao 摘\quad 要}%
+  \upcabstractbody
+}{%
+  \par
+  \vspace{0.5\baselineskip}%
+  {\upcabstractbody\textbf{关键词：}\UPCKeywordsCN\par}%
+}
+
+\newenvironment{upcabstracten}{%
+  \cleardoublepage
+  \upcsetupfrontmatter
+  \thispagestyle{upcfrontmatter}%
+  \markboth{\UPCFixedHeaderText}{}%
+  \vspace*{\baselineskip}%
+  {\centering {\upctimes\xiaoerhao\bfseries \UPCEnglishTitle\par}}%
+  \ifdefempty{\@upcenglishsubtitle}{}{\par\raggedleft\upctimes\xiaoerhao\bfseries \UPCEnglishSubtitle\par}%
+  \upcabstractheading{\upctimes\sanhao\bfseries Abstract}%
+  \upcabstractbody
+}{%
+  \par
+  \vspace{0.5\baselineskip}%
+  {\upcabstractbody\textbf{Keywords: }\UPCKeywordsEN\par}%
+}
+
+% --- Originality & License -------------------------------------------------
+\newcommand*\UPCOriginalityTitle{学位论文原创性声明}
+\newcommand*\UPCOriginalityText{%
+  本人所提交的学位论文《\@title》，是在导师的指导下，独立进行研究工作所取得的原创性成果。除文中已经注明引用的内容外，本论文不包含任何其他个人或集体已经发表或撰写过的研究成果。对本文的研究做出重要贡献的个人和集体，均已在文中标明。
+
+  本声明的法律后果由本人承担。%
+}
+\newcommand*\UPCAuthorSignatureLabel{论文作者（签名）：}
+\newcommand*\UPCAdvisorConfirmLabel{指导教师确认（签名）：}
+\newcommand*\UPCLicenseTitle{学位论文版权使用授权书}
+\newcommand*\UPCLicenseText{%
+  本学位论文作者完全了解中国石油大学（华东）有权保留并向国家有关部门或机构送交学位论文的复印件和磁盘，允许论文被查阅和借阅。本人授权中国石油大学（华东）可以将学位论文的全部或部分内容编入有关数据库进行检索，可以采用影印、缩印或其它复制手段保存、汇编学位论文。%
+}
+\newcommand*\UPCAdvisorSignatureLabel{指导教师（签名）：}
+\newcommand*\UPCDatePlaceholder{\quad 年 \quad 月 \quad 日}
+
+\newcommand*\upc@signatureblock[2]{%
+  \noindent
+  \begin{minipage}[t]{0.48\textwidth}%
+    {\upcbody\centering #1\par}%
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.48\textwidth}%
+    {\upcbody\centering #2\par}%
+  \end{minipage}%
+  \noindent
+  \begin{minipage}[t]{0.48\textwidth}%
+    {\upcbody\raggedleft \UPCDatePlaceholder\par}%
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.48\textwidth}%
+    {\upcbody\raggedleft \UPCDatePlaceholder\par}%
+  \end{minipage}%
+}
+
+\newcommand*\upcprintoriginality{%
+  \cleardoublepage
+  \thispagestyle{upcfrontmatterplain}%
+  \vspace{\baselineskip}%
+  \begin{center}
+    {\upchei\xiaosanhao \UPCOriginalityTitle\par}%
+  \end{center}%
+  \vspace{\baselineskip}%
+  {\upcbody \UPCOriginalityText\par}%
+  \vspace{4\baselineskip}%
+  \upc@signatureblock{\UPCAuthorSignatureLabel}{\UPCAdvisorConfirmLabel}%
+}
+
+\newcommand*\upcprintlicense{%
+  \vspace{2\baselineskip}%
+  \begin{center}
+    {\upchei\xiaosanhao \UPCLicenseTitle\par}%
+  \end{center}%
+  \vspace{\baselineskip}%
+  {\upcbody \UPCLicenseText\par}%
+  \vspace{4\baselineskip}%
+  \upc@signatureblock{\UPCAuthorSignatureLabel}{\UPCAdvisorSignatureLabel}%
+}
+
+% --- Appendix --------------------------------------------------------------
+\newcommand*\upcappendixprefix{%
+  \upcspecialchapter{附　录}{附　录}%
+  \upcappendixnumbering
+}
+
+\newcommand*\upcappendixsection[1]{%
+  \section*{#1}%
+  \addcontentsline{toc}{section}{#1}%
+}
+
+% --- Table helpers (three-line table) --------------------------------------
+% UPC table spec:
+%   - 5号宋体 (\upcsong\wuhao)
+%   - 三线表 (\toprule / \midrule / \bottomrule)
+%   - 表号按一级标题编排 (already: \thechapter-\arabic{table})
+%   - 表头单位换行（与中文名不在同一行）
+%   - 跨页表格自动输出“续表××”
+%   - 表注写在底线下左侧
+
+% 统一表格字体
+\newcommand*\upctablefont{\upcsong\wuhao}
+
+% 表头单元格：中文名 + 换行 + 单位
+% 用法：\upchdr{试验编号}{/（个）}
+\newcommand*\upchdr[2]{%
+  \begin{tabular}[c]{@{}c@{}}\strut #1\\#2\strut\end{tabular}%
+}
+
+% 普通三线表环境
+% #1[可选] = 浮动位置 (默认 htbp)
+% #2 = 表题
+% #3 = label
+\newenvironment{upctable}[3][htbp]{%
+  \begin{table}[#1]
+  \centering
+  \upctablefont
+  \setlength{\tabcolsep}{3.5pt}%
+  \renewcommand{\arraystretch}{1.2}%
+  \caption{#2}\label{#3}%
+}{%
+  \end{table}%
+}
+
+% 跨页三线表环境
+% 封装了字体、列距、行距和 caption，用户按照标准 longtable 语法填写头部与数据即可。
+% #1 = 列格式定义 (e.g. {cc})
+% #2 = 表题
+% #3 = label
+\newenvironment{upclongtable}[3]{%
+  \upctablefont
+  \setlength{\tabcolsep}{3.5pt}%
+  \renewcommand{\arraystretch}{1.2}%
+  \begin{longtable}{#1}%
+  \caption{#2}\label{#3}\\%
+}{%
+  \end{longtable}%
+}
+
+% 续表标题行（放在 \endfirsthead 之后、续页表头之前）
+% #1 = 总列数（用于 \multicolumn）
+\newcommand*\upclongtablecont[1]{%
+  \multicolumn{#1}{r}{续表~\thetable}\\%
+}
+
+% 表注：放在表格底线下左侧
+% #1[可选] = 合并列数（默认 1）
+% #2 = 注释内容
+% 用法：跨页表放在数据最后、\bottomrule 之前；普通表放在 \end{tabular} 之前
+\newcommand*\upctablenote[2][1]{%
+  \\[-0.6em]%
+  \multicolumn{#1}{@{}l}{\upctablefont 注：#2}%
+}
+
+\makeatother

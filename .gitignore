@@ -1,0 +1,16 @@
+/external/
+*.aux
+*.log
+*.toc
+*.lof
+*.lot
+*.bbl
+*.bcf
+*.blg
+*.run.xml
+*.fdb_latexmk
+*.fls
+*.xdv
+*.synctex.gz
+*.pdf
+thesis-upc.pdf

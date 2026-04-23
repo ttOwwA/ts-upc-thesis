@@ -1,0 +1,31 @@
+\upcappendixprefix
+
+\upcappendixsection{附录 A 名词术语及缩略词}
+
+OOP：Object-Oriented Programming，面向对象程序设计。GUI：Graphical User Interface，图形用户界面。
+
+附录中的插图、表格和公式同样建议使用标准环境自动生成编号。示例中，系统整体架构如图 \ref{fig:appendix-arch} 所示，核心函数说明见表 \ref{tab:appendix-func}，二次函数表达式见式（\ref{eq:appendix-poly}）。
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=.6\linewidth]{img/example.pdf}
+  \caption{系统整体架构图}
+  \label{fig:appendix-arch}
+\end{figure}
+
+\begin{upctable}[htbp]{核心函数说明表}{tab:appendix-func}
+  \begin{tabular}{cc}
+    \toprule
+    函数名 & 功能说明 \\
+    \midrule
+    InitList & 初始化线性表 \\
+    InsertElem & 插入元素 \\
+    DeleteElem & 删除元素 \\
+    \bottomrule
+  \end{tabular}
+\end{upctable}
+
+\begin{equation}
+  f(x)=ax^2+bx+c
+\label{eq:appendix-poly}
+\end{equation}
