@@ -1,13 +1,13 @@
 # 中国石油大学（华东）本科毕业设计 LaTeX 模板
 
-> 本模板基于 [ThesisScaffold](https://github.com/yourname/thesis-scaffold) 核心框架，实现了中国石油大学（华东）本科毕业设计论文的排版。
+> 本模板基于 [ThesisScaffold](https://github.com/ttOwwA/thesis-scaffold) 核心框架，实现了中国石油大学（华东）本科毕业设计论文的排版。
 
 ## 快速开始
 
 ### 1. 安装模板
 
 ```bash
-git clone https://github.com/yourname/thesis-scaffold.git
+git clone https://github.com/ttOwwA/thesis-scaffold.git
 cd thesis-scaffold
 
 # 查看可选学校
@@ -91,10 +91,10 @@ latexmk -xelatex thesis-upc.tex
 
 ## 与上游同步（模板维护者）
 
-本模板基于 [ThesisScaffold](https://github.com/yourname/thesis-scaffold) 核心框架。如需同步上游更新：
+本模板基于 [ThesisScaffold](https://github.com/ttOwwA/thesis-scaffold) 核心框架。如需同步上游更新：
 
 ```bash
-git remote add upstream https://github.com/yourname/thesis-scaffold.git
+git remote add upstream https://github.com/ttOwwA/thesis-scaffold.git
 git fetch upstream
 git rebase upstream/main
 ```
