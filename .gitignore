@@ -13,4 +13,5 @@
 *.xdv
 *.synctex.gz
 *.pdf
+!_config/profiles/upc/logo.pdf
 thesis-upc.pdf
